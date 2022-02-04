@@ -1,8 +1,6 @@
 from flask import Flask, redirect, render_template, request, url_for
 from flask_restful import Api
 from flask_jwt import JWT
-from Resources.employees import Employees, EmployeesList
-from Resources.user import UserRegister
 from db import db
 from Model.employees import EmployeeModel
 from security import authenticate, identity
@@ -19,61 +17,40 @@ def create_tables():
 
 jwt=JWT(app,authenticate,identity)
 
-# api.add_resource(UserRegister,'/register')
-# api.add_resource(EmployeesList,'/employeeslist')
-# api.add_resource(Employees,'/employees')
-
 @app.route('/home')
 def home():
-    all_data = EmployeeModel.query.all()
-    return render_template("details.html", employees = all_data)
+    employee_list = EmployeeModel.query.all()
+    return render_template("details.html", employees = employee_list)
  
  
- 
-#this route is for inserting data to mysql database via html forms
-@app.route('/insert', methods = ['POST'])
-def insert():
+@app.route('/add', methods = ['POST'])
+def add():
     if request.method == 'POST':
         name = request.form['name']
         age = request.form['age']
         salary = request.form['salary']
         designation = request.form['designation']
-
-        my_data = EmployeeModel(name, age, salary,designation)
-        db.session.add(my_data)
+        new_data = EmployeeModel(name, age, salary,designation)
+        db.session.add(new_data)
         db.session.commit()
- 
-        # flash("Employee Inserted Successfully")
-
         return redirect(url_for('home'))
  
- 
-#this is our update route where we are going to update our employee
-@app.route('/update', methods = ['GET', 'POST'])
-def update():
- 
+@app.route('/edit', methods = ['GET', 'POST'])
+def edit():
     if request.method == 'POST':
-        my_data = EmployeeModel.query.get(request.form.get('id'))
- 
-        my_data.name = request.form['name']
-        my_data.age = request.form['age']
-        my_data.salary = request.form['salary']
-        my_data.designation = request.form['designation']
- 
+        new_data = EmployeeModel.query.get(request.form.get('id'))
+        new_data.name = request.form['name']
+        new_data.age = request.form['age']
+        new_data.salary = request.form['salary']
+        new_data.designation = request.form['designation']
         db.session.commit()
-        # flash("Employee Updated Successfully")
- 
         return redirect(url_for('home'))
  
- 
-#This route is for deleting our employee
 @app.route('/delete/<id>/', methods = ['GET', 'POST'])
 def delete(id):
-    my_data = EmployeeModel.query.get(id)
-    db.session.delete(my_data)
+    new_data = EmployeeModel.query.get(id)
+    db.session.delete(new_data)
     db.session.commit()
-    # flash("Employee Deleted Successfully")
- 
     return redirect(url_for('home'))
 
 if __name__ =='__main__':

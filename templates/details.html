@@ -3,7 +3,7 @@
 {% block title %} details page {% endblock %} 
 
 {% block body %}
-<div class="d-flex justify-content-between"">
+<div class="d-flex justify-content-between">
     <h3 class="m-3">Employee Details</h3>
     <button class="btn btn-success m-3" data-toggle="modal" data-target="#mymodal">Add Employee</button>
   </div>
@@ -25,206 +25,77 @@
         <td>{{emp.salary}}</td>
         <td>{{emp.designation}}</td>
         <td>
-            <a href="/update/{{emp.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{emp.id}}">Edit</a>
+            <a href="/edit/{{emp.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{emp.id}}">Edit</a>
             <a href="/delete/{{emp.id}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
-
-
         </td>
     </tr>
 
-                  <!-- Modal Edit Employee-->
 <div id="modaledit{{emp.id}}" class="modal fade" role="dialog">
    <div class="modal-dialog">
- 
- 
       <div class="modal-content">
- 
- 
-         <div class="modal-header">
- 
- 
-            <h4 class="modal-title">Update Information</h4>
- 
- 
-         </div>
- 
- 
          <div class="modal-body">
- 
- 
-            <form action="{{url_for('update')}}" method="POST">
- 
- 
+            <form action="{{url_for('edit')}}" method="POST">
                <div class="form-group">
- 
- 
                   <label>Name:</label>
-                   <input type="hidden"  name="id" value="{{emp.id}}">
- 
+                  <input type="hidden"  name="id" value="{{emp.id}}">
                   <input type="text" class="form-control" name="name" value="{{emp.name}}">
- 
- 
                </div>
- 
- 
- 
+
                <div class="form-group">
- 
- 
                   <label>Age:</label>
- 
                   <input type="number" class="form-control" name="age" value="{{emp.age}}">
- 
- 
                </div>
  
- 
                <div class="form-group">
- 
- 
                   <label>Salary:</label>
- 
                   <input type="number" class="form-control" name="salary" value="{{emp.salary}}">
- 
- 
                </div>
 
                <div class="form-group">
- 
- 
                 <label>Designation:</label>
-
                 <input type="text" class="form-control" name="designation" value="{{emp.designation}}">
-
-
              </div>
  
- 
                <div class="form-group">
- 
- 
                   <button class="btn btn-primary" type="submit">Update</button>
- 
- 
                </div>
- 
- 
             </form>
- 
- 
          </div>
- 
- 
-         <div class="modal-footer">
- 
- 
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
- 
- 
-         </div>
- 
- 
       </div>
- 
- 
    </div>
- 
 </div>
- 
- 
                     {% endfor %}
- 
- 
                 </table>
- 
- 
             </div>
- 
- 
- 
-                  <!-- Modal Add Employee-->
- 
- 
+
 <div id="mymodal" class="modal fade" role="dialog">
    <div class="modal-dialog">
       <div class="modal-content">
-      l̥   <div class="modal-header">
- 
-            <h4 class="modal-title">Add Employee</h4>
-         </div>
          <div class="modal-body">
- 
-            <form action="{{url_for('insert')}}" method="POST">
- 
- 
+            <form action="{{url_for('add')}}" method="POST">
                <div class="form-group">
- 
                   <label>Name:</label>
                   <input type="text" class="form-control" name="name" required="1">
- 
- 
                </div>
- 
- 
-                <div class="form-group">
- 
- 
+                 <div class="form-group">
                   <label>Age:</label>
                   <input type="number" class="form-control" name="age" required="1">
- 
- 
                </div>
- 
- 
                 <div class="form-group">
- 
- 
                   <label>Salary:</label>
                   <input type="number" class="form-control" name="salary" required="1">
- 
- 
                </div>
-
                <div class="form-group">
- 
- 
                 <label>Designation:</label>
                 <input type="text" class="form-control" name="designation" required="1">
-
-
              </div>
- 
- 
                <div class="form-group">
- 
- 
                   <button class="btn btn-primary" type="submit">Add Employee</button>
- 
- 
                </div>
- 
- 
             </form>
- 
- 
          </div>
- 
- 
-         <div class="modal-footer">
- 
- 
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
- 
- 
-         </div>
- 
- 
       </div>
- 
- 
    </div>
- 
- 
 </div>
 
 

@@ -16,18 +16,6 @@ class EmployeeModel(db.Model):
         self.salary=salary
         self.designation=designation
 
-    def json(self):
-        return {
-            'name':self.name,
-            'age':self.age,
-            'salary':self.salary,
-            'designation':self.designation
-        }
-
-    @classmethod
-    def find_by_name(cls,name):
-        return cls.query.filter_by(name=name).first()
-
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
